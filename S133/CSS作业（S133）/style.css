@@ -1,0 +1,41 @@
+@font-face{font-family: BOOM;src: url(font/BOOMBOX.TTF)}
+@font-face{font-family: ONYX;src: url(font/ONYX.TTF)}
+@font-face{font-family: TCM;src: url(font/TCCM____.TTF) }
+@font-face{font-family: ROCK;src: url(font/ROCK.TTF)}
+@font-face{font-family: LTCH;src:url(font/LTCH.TTF)}
+@font-face{font-family: FZJ;src:url(font/FZJZJW.TTF)}
+
+h2 .a{
+    font-family: BOOM;
+    font-size: 60px;
+    
+}
+h2 .b{
+    font-family: LTCH;
+    font-size: 46px;
+    color: #e1005a;
+}
+.One .a{
+    font-family: ONYX;
+    color: black;
+    font-size: 48px;
+}
+.One .b{
+    
+    color: #4c9372;
+    font-size: 48px;
+}
+.Two .a{
+    font-family: ROCK;
+    font-size: 24px;
+}
+.Two .b{
+    font-family: ROCK;
+    font-size: 36px;
+}
+.Thess {
+    font-family: ROCK;
+    font-size: 24px;
+    color: #e1005a;
+}
+
