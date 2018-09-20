@@ -35,7 +35,12 @@ h2 .b{
 }
 .Thess {
     font-family: ROCK;
-    font-size: 24px;
+    font-size: 38px;
+    
+}
+.Thess .b{
+    font-family: ROCK;
+    font-size: 38px;
     color: #e1005a;
 }
 
