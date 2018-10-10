@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 13px;
+}
+form{
+    width: 320px;
+    height: 150px;
+    margin: 50px auto;
+    padding-top: 20px;
+    background: #F5F8FD;
+    border-radius: 25px;
+    border: 3px solid #53ACC9
+}
+p{
+    margin-top:15px;
+    text-align: center;
+}
+p span{
+    width: 40px;
+    display: inline-block;
+    text-align: right;
+}
+.uname{
+    background: url(images/1.jpg) no-repeat 5px center #fff;
+}
+.pword{
+    background: url(images/2.jpg) no-repeat 5px center #fff;
+}
+.uname ,.pword{
+    width: 150px;
+    height: 25px;
+    border: 1px solid #53ACC9;
+    padding: 2px 2px 2px 22px;
+}
+.btnLogin,.btnReg{
+    width: 70px;
+    height: 25px;
+    border-radius: 2px;
+    border: 1px solid #6B5D51;
+    margin-left: 30px;
+}
+.btnLogin{
+    background: #43B8E8;
+}
+.btnReg{
+    background: #F98C2D;
+
+}
