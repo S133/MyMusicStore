@@ -1,0 +1,22 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.title{
+    width: 90%;
+    height: 30px;
+    background-color: #eeeeee;
+    margin: 0 auto;
+}
+.log{
+    width: 20px;
+    height: 20px;
+}
+.content{
+    width: 90%;
+    margin: 0 auto;
+}
+.vide{
+    width: 800px;
+    height: 800px;
+}
