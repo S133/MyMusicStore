@@ -16,7 +16,8 @@
     width: 90%;
     margin: 0 auto;
 }
-.vide{
-    width: 800px;
-    height: 800px;
+.im{
+    border-radius: 5px;
+    widows: 150px;
+    height: 150px;
 }
