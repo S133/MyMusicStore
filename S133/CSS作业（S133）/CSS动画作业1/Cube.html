@@ -7,25 +7,93 @@
     <title>Document</title>
 </head>
 <style>
-.div1{
+    *{
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+.div{
     margin: 100px auto;
-        width: 100px;
-        height: 100px;
-        background: rosybrown;
+        width: 200px;
+        height: 200px;
+        position: relative;
+        animation: move 5s linear infinite;
+        transform-style: preserve-3d;
+        border: 3px dashed black;
+        border-radius: 50%;
 }
-body{
-    font-size: 15px;
+.n1{
+    background-color: aqua;
+}
+.n2{
+    background-color: cornsilk;
+}
+.n3{
+    background-color: darksalmon;
+}
+.n4{
+    background-color: violet;
+}
+.n5{
+    background-color: darkkhaki;
+}
+.n6{
+    background-color: sienna;
+}
+.n1,.n2,.n3,.n4,.n5,.n6{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
     font-family: "微软雅黑";
-    font-weight: bold;
+    font-size: 50px;
     text-align: center;
+    line-height: 200px;
+    opacity: 0.6;
 }
+ul li:nth-child(1){
+    transform: rotateY(-90deg) translateZ(100px);
+}
+ul li:nth-child(2){
+    transform: rotateY(90deg) translateZ(100px);
+}
+ul li:nth-child(3){
+    transform: rotateY(180deg) translateZ(100px);
+}
+ul li:nth-child(4){
+    transform: rotateY(360deg) translateZ(100px);
+}
+ul li:nth-child(5){
+    transform: rotateX(90deg) translateZ(100px);
+}
+ul li:nth-child(6){
+    transform: rotateX(-90deg) translateZ(100px);
+}
+@keyframes move{
+       0%{transform:rotateX(0deg) rotateY(0deg);}
+       100%{
+           transform:rotateX(360deg) rotateY(360deg);
+       }
+    }
+    @-webkit-keyframes move{
+        0%{transform:rotateX(0deg) rotateY(0deg);}
+        100%{
+           transform:rotateX(360deg) rotateY(360deg);
+       }
+    }
+   
+
 </style>
 <body>
-    <div class="div1"><p>上</p></div>
-    <div class="div2"><p>左</p></div>
-    <div class="div3"><p>右</p></div>
-    <div class="div4"><p>下</p></div>
-    <div class="div5"><p>上</p></div>
-    <div class="div6"><p>下</p></div>
+    <ul class="div">
+            <li class="n1">上</li>
+            <li class="n2">下</li>
+            <li class="n3">前</li>
+            <li class="n4">前</li>
+            <li class="n5">后</li>
+            <li class="n6">后</li>
+    </ul>
+    
 </body>
 </html>
