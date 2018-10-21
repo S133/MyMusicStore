@@ -40,6 +40,7 @@ img.bg{
     border-radius: 5px;
     position: relative;
     cursor: pointer;
+    text-shadow: -1px -1px 1px rgba(0,0,0,0.8),-2px -2px 2px rgba(0,0,0,0.3),-3px -3px 3px rgba(0,0,0,0.3);
 }
 .slider li:nth-child(1) a{
     background-color: #9d907f;
@@ -82,5 +83,124 @@ img.bg{
     background: url(images/sbg4.jpg)no-repeat center;
 }
 .slider li:nth-of-type(5) a::after{
+   
     background: url(images/sbg5.jpg)no-repeat center;
+}
+.slider a::before{
+    content: "";
+    display: block;
+    width: 120px;
+    height: 120px;
+    border: 5px solid white;
+    border: 5px solid white;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top:-80px;
+    z-index: 99999;
+    margin-left: -65px;
+    background: rgba(0, 0, 0,0.3);
+}
+.slider a:hover::before{
+    opacity: 0;
+}
+@keyframes 'slideleft'{
+    0%{
+        left: -900px;
+    }
+    100%{
+        left: 0;
+    }
+}
+@-webkit-keyframes 'slideleft'{
+    0%{
+        left: -900px;
+    }
+    100%{
+        left: 0;
+    }
+}
+.slideleft:target{
+    z-index: 100;
+    animation: slideleft 1s 1;
+}
+@keyframes  'slidebottom'{
+    0%{
+        top:900px;
+    }
+    100%{
+        top:0;
+    }
+}
+@-webkit-keyframes  'slidebottom'{
+    0%{
+        top:900px;
+    }
+    100%{
+        top:0;
+    }
+}
+.slidebottom:target{
+    z-index: 100;
+    animation: slidebottom 1s 1;
+}
+@keyframes  'zoomin'{
+    0%{
+        transform:scale(0.1);
+    }
+    100%{
+        transform:none;
+    }
+}
+@-webkit-keyframes  'zoomin'{
+    0%{
+        transform:scale(0.1);
+    }
+    100%{
+        transform:none;
+    }
+}
+.zoomin:target{
+    z-index: 100;
+    animation: zoomin 1s 1;
+}
+@keyframes  'zoomout'{
+    0%{
+        transform:scale(4);
+    }
+    100%{
+        transform:none;
+    }
+}
+@-webkit-keyframes  'zoomout'{
+    0%{
+        transform:scale(4);
+    }
+    100%{
+        transform:none;
+    }
+}
+.zoomout:target{
+    z-index: 100;
+    animation: zoomout 1s 1;
+}
+@keyframes  'rotate'{
+    0%{
+        transform:rotate(-360deg) scale(0.1);
+    }
+    100%{
+        transform:none;
+    }
+}
+@-webkit-keyframes  'rotate'{
+    0%{
+        transform:rotate(-360deg);
+    }
+    100%{
+        transform:none;
+    }
+}
+.rotate:target{
+    z-index: 100;
+    animation: rotate 1s 1;
 }
