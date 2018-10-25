@@ -19,12 +19,15 @@
             function init(){
                 clock=document.getElementById("clock");
                 time=setInterval(updatedae,1000);
-                console.log(time);
+                // console.log(time);
+            }
+            function stop(){
+                clearInterval(time);
             }
             </script>
 </head>
 <body onload="init()">
-    <button onclick="">停止</button>
+    <button onclick="stop()">停止</button>
     <div id="clock"></div>
 </body>
 </html>
