@@ -25,5 +25,11 @@ function updateTime(){
     document.getElementById('hour').innerHTML=h;
     document.getElementById('minute').innerHTML=m;
     document.getElementById('second').innerHTML=s;
+
+    if(leftSecond<=0){
+        document.getElementById('end_box').style.background='url(images/flash_end.png)no-repeat'
+        document.getElementById('end_box').style.display="block";
+        document.getElementById('end_box').innerHTML="秒杀已结束";
+    }
 }
 var countDown=setInterval(updateTime,1000);
