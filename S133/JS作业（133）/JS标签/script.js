@@ -3,7 +3,7 @@ window.onload=function(){
     var head_divs=document.getElementById("tab-head").getElementsByTagName("div");
     var current_index=0;
 
-    var timer=setInterval(autuCheck,5000);
+    var timer=setInterval(autuCheck,1000);
 
     for(var i=0;i<head_divs.length;i++){
         head_divs[i].onmouseover=function(){
@@ -24,7 +24,7 @@ window.onload=function(){
             }
         }
         head_divs[i].onmouseout=function(){
-            timer=setInterval(autuCheck,5000);
+            timer=setInterval(autuCheck,1000);
         }
     }
 
