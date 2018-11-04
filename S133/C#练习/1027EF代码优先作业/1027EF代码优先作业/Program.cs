@@ -24,7 +24,7 @@ namespace _1027EF代码优先作业
                 Title = "软件工程项目组织管理",
                 Credit = 17,
                 Departments = context.Departments.SingleOrDefault(x => x.Name == "电子信息工程学院")
-                
+
             };
             context.Courses.Add(c1);
             context.SaveChanges();
@@ -46,8 +46,29 @@ namespace _1027EF代码优先作业
             };
             context.Courses.Add(c3);
             context.SaveChanges();
-            foreach (var c in courses)
+            foreach (var c in context.Courses.ToList())
                 Console.WriteLine("课程名称：{0} 课程学分：{1} 所属学院：{2}", c.Title, c.Credit, c.Departments.Name);
+
+            Console.WriteLine("================修改一门课程================");
+            var obj = context.Courses.SingleOrDefault(x => x.Title == "C#图像处理");
+            if (obj != null)
+            {
+                obj.Title = "C#图像处理";
+                obj.Credit = 2;
+                obj.Departments = context.Departments.SingleOrDefault(x => x.Name == "电子信息工程学院");
+                context.SaveChanges();
+            }
+            else
+                Console.WriteLine("未找到该课程,不能修改！");
+            foreach (var c in context.Courses.ToList())
+                Console.WriteLine("课程名称：{0} 课程学分：{1} 所属学院：{2}", c.Title, c.Credit, c.Departments.Name);
+            Console.WriteLine("================删除一门课程================");
+            var delobj = context.Courses.Find(Guid.Parse("bb73230c-40b9-47d9-aa62-8a5818f0dfc7"));
+            context.Courses.Remove(delobj);
+            context.SaveChanges();
+            foreach (var c in context.Courses.ToList())
+                Console.WriteLine("课程名称：{0} 课程学分：{1} 所属学院：{2}", c.Title, c.Credit, c.Departments.Name);
+
             Console.ReadKey();
         }
     }
