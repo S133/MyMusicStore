@@ -3,9 +3,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using System.Web;
 using System;
-using ASPNETWebFormDemo;
+using ASPNETWEB;
 
-namespace ASPNETWebFormDemo
+namespace ASPNETWEB
 {
     // 可以通过将更多属性添加到用户类来添加用户的用户数据，请访问 http://go.microsoft.com/fwlink/?LinkID=317594 了解详细信息。
     public class ApplicationUser : IdentityUser
@@ -30,7 +30,7 @@ namespace ASPNETWebFormDemo
     }
 }
 
-namespace ASPNETWebFormDemo
+namespace ASPNETWEB
 {
     public static class IdentityHelper
     {

@@ -2,5 +2,12 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
-    
+
+    <asp:DropDownList ID="DropDownList1" runat="server">
+    </asp:DropDownList>
+
+    <br />
+
+    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+    <br />
 </asp:Content>
