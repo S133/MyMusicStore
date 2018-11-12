@@ -18,12 +18,12 @@ namespace DateContext.Migrations
             };
             var c2 = new Category()
             {
-                Name = "手机/办公",
+                Name = "手机/数码",
                 SortCode = "002",
             };
             var c3 = new Category()
             {
-                Name = "电脑/办公",
+                Name = "电脑/办工",
                 SortCode = "003",
             };
             var c4 = new Category()
