@@ -1,10 +1,12 @@
-﻿using System;
+﻿using DateContext;
+using Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DateContext;
+
 
 public partial class ProductList : System.Web.UI.Page
 {
@@ -22,11 +24,17 @@ public partial class ProductList : System.Web.UI.Page
             GridView1.DataBind();
         }
     }
+    protected string GetName(object obj)
+    {
+        if (obj != null)
+            return ((Category)obj).Name;
+        return "该商品未分类";
+    }
 
-    
     protected void GridView1_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
+        GridView1.EditIndex = -1;
         _getData();
     }
 
@@ -42,12 +50,26 @@ public partial class ProductList : System.Web.UI.Page
         _getData();
     }
 
-
-
     protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
     {
         GridView1.EditIndex = e.NewEditIndex;
         _getData();
+        
+        var context = new ProductDbContext();
+        var categories = context.Categories.ToList();
+        
+        var ddl = (DropDownList)GridView1.Rows[e.NewEditIndex].FindControl("DdlCategory");
+        
+        ddl.DataSource = categories;
+        ddl.DataTextField = "Name";
+        ddl.DataValueField = "ID";
+        ddl.DataBind();
+        
+        var id = (Guid)GridView1.DataKeys[e.NewEditIndex].Value;
+        
+        var product = context.Products.Find(id);
+        if (product.Categoty != null)
+            ddl.SelectedValue = product.Categoty.ID.ToString();
     }
 
     protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
@@ -55,7 +77,6 @@ public partial class ProductList : System.Web.UI.Page
         GridView1.EditIndex = -1;
         _getData();
     }
-    //xiu
 
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
@@ -66,13 +87,15 @@ public partial class ProductList : System.Web.UI.Page
             var row = GridView1.Rows[e.RowIndex];
             var sn = (row.Cells[0].Controls[0] as TextBox).Text.Trim();
             var name = (row.Cells[1].Controls[0] as TextBox).Text.Trim();
-            var dscn = (row.Cells[2].Controls[0] as TextBox).Text.Trim();
-
+            var dscn = (row.Cells[3].Controls[0] as TextBox).Text.Trim();
+            var categoryID = Guid.Parse(((DropDownList)row.FindControl("DdlCategory")).SelectedValue);
+            p.Categoty = context.Categories.Find(categoryID);
             p.SN = sn;
             p.Name = name;
             p.DSCN = dscn;
             context.SaveChanges();
         }
+
         GridView1.EditIndex = -1;
         _getData();
     }

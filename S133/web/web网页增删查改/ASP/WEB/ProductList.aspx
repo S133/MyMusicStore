@@ -11,6 +11,15 @@
             <asp:BoundField DataField="Name" HeaderText="商品名称">
             <ItemStyle Width="30%" />
             </asp:BoundField>
+            <asp:TemplateField HeaderText="分类">
+                <EditItemTemplate>
+                    <asp:DropDownList ID="DdlCategory" runat="server" Width="89px">
+                    </asp:DropDownList>
+                </EditItemTemplate>
+                <ItemTemplate>
+                    <asp:Label ID="LblCategory" runat="server" Text="Label"></asp:Label>
+                </ItemTemplate>
+            </asp:TemplateField>
             <asp:BoundField DataField="DSCN" HeaderText="说明" />
             <asp:TemplateField HeaderText="维护操作" ShowHeader="False">
                 <EditItemTemplate>
@@ -19,11 +28,12 @@
                 </EditItemTemplate>
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1" runat="server" CausesValidation="False" CommandName="Edit" Text="编辑"></asp:LinkButton>
-                    &nbsp;<asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="删除" OnClientClick="return confirm('你确定要删除么？');"></asp:LinkButton>
+                    &nbsp;
+                    <asp:LinkButton ID="LinkButton2" runat="server" CausesValidation="False" CommandName="Delete" Text="删除" OnClientClick="return confirm('你真的要删了我么？');"></asp:LinkButton>
                 </ItemTemplate>
                 <HeaderStyle Width="150px" />
                 <ItemStyle Width="150px" />
-            </asp:TemplateField> 
+            </asp:TemplateField>
         </Columns>
     </asp:GridView>
 </asp:Content>
