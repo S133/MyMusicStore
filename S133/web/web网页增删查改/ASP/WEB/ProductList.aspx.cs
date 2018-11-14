@@ -55,6 +55,7 @@ public partial class ProductList : System.Web.UI.Page
         GridView1.EditIndex = -1;
         _getData();
     }
+    //xiu
 
     protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
     {
