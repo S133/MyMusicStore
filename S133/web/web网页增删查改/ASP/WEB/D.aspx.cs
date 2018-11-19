@@ -14,6 +14,7 @@ public partial class D : System.Web.UI.Page
         {
             var c = Session["C"] as Category;
             Label1.Text = c.SortCode + "." + c.Name;
+            //1
         }
     }
 }
