@@ -9,5 +9,6 @@ namespace MvcDemo1.Models
     public class MovieDBContext:DbContext
     {
         public DbSet<Movie> Movies { get; set; }
+        public DbSet<Genre> Genre { get; set; }
     }
 }
