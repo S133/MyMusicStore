@@ -1,0 +1,8 @@
+#header h1{
+    font-size: 18px;
+    float: left;
+    padding: 45px 0 5px 0;
+}
+#header h1 a{
+    color: #5e5b54;
+}
