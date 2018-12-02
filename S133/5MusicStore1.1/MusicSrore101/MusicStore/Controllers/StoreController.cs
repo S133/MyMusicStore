@@ -22,5 +22,10 @@ namespace MusicStore.Controllers
                 .OrderByDescending(x => x.PublisherDate).ToList();
             return View(list);
         }
+        public ActionResult Index()
+        {
+            var genres = _context.Genres.OrderBy(x => x.Name).ToList();
+            return View(genres);
+        }
     }
 }
