@@ -62,7 +62,7 @@ namespace MusicStore.Controllers
             values.Add(new KeyValuePair<string, string>("UserName", "admin"));
             values.Add(new KeyValuePair<string, string>("PassWord", "123.abc"));
             var content = new FormUrlEncodedContent(values);
-            var respnse = await client.PostAsync("http://10.88.91.101:9000/account/login",content);
+            var respnse = await client.PostAsync("http://10.88.91.101:9000/account/login", content);
 
             var html = await respnse.Content.ReadAsStringAsync();
             return Json("");
