@@ -18,6 +18,12 @@ namespace MusicStore.Controllers
         {
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterViewModel model)
+        {
+            return View();
+        }
         public ActionResult Login(string returnUrl = null)
         {
             if (string.IsNullOrEmpty(returnUrl))
