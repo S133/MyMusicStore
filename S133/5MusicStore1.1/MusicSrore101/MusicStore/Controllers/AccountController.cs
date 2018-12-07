@@ -64,7 +64,7 @@ namespace MusicStore.Controllers
             if (string.IsNullOrEmpty(returnUrl))
                 ViewBag.ReturnUrl = Url.Action("index", "home");
             else
-                ViewBag.TeturnUrl = returnUrl;
+                ViewBag.ReturnUrl = returnUrl;
             return View();
         }
         [HttpPost]
