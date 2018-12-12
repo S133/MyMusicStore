@@ -41,7 +41,6 @@ namespace MusicStoreEntity
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public Order()
         {
-            ID = Guid.NewGuid();
             OrderDateTime = DateTime.Now;
             TradeNo = OrderDateTime.ToString("yyyyMMddhhmmssffff");
         }

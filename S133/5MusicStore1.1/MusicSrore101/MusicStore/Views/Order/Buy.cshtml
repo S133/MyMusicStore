@@ -57,6 +57,15 @@
 }
 <script>
     function RemoveDetail(id) {
-
+        $.ajax({
+            type: 'post',
+            async: true,
+            url: "../../Order/RemoveDetail",
+            data: { id: id },
+            dataType: "json",
+            success: function (data) {
+                $("#tbCart").html(data);
+            }
+        });
     }
 </script>
