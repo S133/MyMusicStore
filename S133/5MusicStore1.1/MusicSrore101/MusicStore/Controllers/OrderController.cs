@@ -78,17 +78,46 @@ namespace MusicStore.Controllers
             return Json(htmlString);
         }
         [HttpPost]
-        public ActionResult Buy(Order oder)
+        public ActionResult Buy(Order order)
         {
             //判断用户登录是否过期,如果过期跳转回登录页,登录成功后返回确认购买页
-
+            if (Session["LoginUserSessionModel"] == null)
+                return RedirectToAction("login", "Account", new { returnUrl = Url.Action("Buy", "Order") });
             //读出当前用户Person
-
+            var person = (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person;
+            order.Person = _context.Persons.Find(person.ID);
             //从会话中读出订单明细列表
+            order.OrderDetails = new List<OrderDetail>();
+            order.TotalPrice = 0.00M;
 
+            var details = (Session["Order"] as Order).OrderDetails;
+            foreach(var item in details)
+            {
+                item.Album = _context.Albums.Find(item.Album.ID);
+                order.OrderDetails.Add(item);
+            }
+            order.TotalPrice= (from item in order.OrderDetails select item.Count * item.Album.Price).Sum();
             //如果表单验证通过,则保存order到数据库
+            if (ModelState.IsValid)
+            {
+                LockedHelp.ThreadLocked(order.ID);
+                try
+                {
+                    _context.Orders.Add(order);
+                    _context.SaveChanges();
+                }
+                catch
+                {
 
+                }
+                finally
+                {
+                    LockedHelp.ThreadUnLocked(order.ID);
+                }
+                return RedirectToAction("Alipay", "Pay", new { id = order.ID });
+            }
             //验证不通过,返回视图
+
             return View();
         }
         public ActionResult Index()
