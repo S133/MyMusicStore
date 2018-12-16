@@ -133,12 +133,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlipayHelper.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\PayController.cs" />
     <Compile Include="Controllers\ShoppingCartController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
     <Compile Include="Global.asax.cs">
@@ -210,6 +213,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\boy.jpg" />
+    <Content Include="Content\Images\home-showcase.png" />
+    <Content Include="Content\Images\loading.gif" />
+    <Content Include="Content\Images\login_logo.png" />
+    <Content Include="Content\Images\logo.png" />
+    <Content Include="Content\Images\placeholder.gif" />
+    <Content Include="Content\Images\str1.jpg" />
     <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -309,9 +319,12 @@
     <Content Include="Views\Account\ChangePassWord.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\Order\Buy.cshtml" />
+    <Content Include="Views\Pay\AliPay.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\My\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Images\" />
+    <Folder Include="Upload\Avarda\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

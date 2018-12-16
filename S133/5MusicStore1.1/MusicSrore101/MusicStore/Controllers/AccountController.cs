@@ -101,6 +101,7 @@ namespace MusicStore.Controllers
                         Person = user.Person,
                         RoleName = roleName,
                     };
+                    //把登录成功信息保存
                     Session["LoginUserSessionModel"] = loginUserSessionModel;
 
                     var identity = userManage.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);

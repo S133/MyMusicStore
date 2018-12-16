@@ -73,11 +73,11 @@ namespace MusicStore.Controllers
             if (Session["LoginUserSessionModel"] == null)
                 return RedirectToAction("login", "Account", new { returnUrl = Url.Action("index", "ShoppingCart") });
             var person = (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person;
-            var cartitem = _context.Carts.Find(id);
-            if (cartitem.Count > 1)
-                cartitem.Count--;
+            var cartItem = _context.Carts.Find(id);
+            if (cartItem.Count > 1)
+                cartItem.Count--;
             else
-                _context.Carts.Remove(cartitem);
+                _context.Carts.Remove(cartItem);
             _context.SaveChanges();
 
             var carts = _context.Carts.Where(x => x.Person.ID == person.ID).ToList();

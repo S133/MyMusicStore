@@ -67,14 +67,16 @@ namespace MusicStore.Controllers
             foreach (var item in order.OrderDetails)
             {
                 htmlString += "<tr>";
-                htmlString += "<td><a href='"+Url.Action("Detail","Store",new { id=item.Album.ID})+"'>"
-                    +item.Album.Title+"</a></td>";
+                htmlString += "<td><a href='" + Url.Action("Detail", "Store", new { id = item.Album.ID }) + "'>"
+                    + item.Album.Title + "</a></td>";
                 htmlString += "<td>" + item.Album.Price.ToString("C") + "</td>";
                 htmlString += "<td>" + item.Count + "</td>";
-                htmlString += "<td><a href='#' onclick='RemoveDetail('"+item.ID+"');'><i class='glyphicon glyphicon-remove'></i>我不喜欢它了</a></td>";
+                htmlString += "<td><a href='#' onclick='RemoveDetail('" + item.ID + "');'><i class='glyphicon glyphicon-remove'></i>我不喜欢它了</a></td>";
                 htmlString += "</tr>";
             }
-            htmlString += "<td><td></td><td></td><td>总价</td><td>" + order.TotalPrice.ToString("C") + "</td></tr>";
+
+            htmlString += "<tr><td></td><td></td><td>总价</td><td>" + order.TotalPrice.ToString("C") + "</td></tr>";
+
             return Json(htmlString);
         }
         [HttpPost]
@@ -105,6 +107,21 @@ namespace MusicStore.Controllers
                 {
                     _context.Orders.Add(order);
                     _context.SaveChanges();
+                    //清空购物车
+                    var carts = _context.Carts.Where(x => x.Person.ID == person.ID).ToList();
+                    foreach(var cart in carts)
+                    {
+                        _context.Carts.Remove(cart);
+                    }
+                    _context.SaveChanges();
+
+                    var p = _context.Persons.Find(person.ID);
+                    p.MobileNumber = order.MobilNumber;
+                    p.Address = order.Address;
+                    p.Name = order.AddressPerson;
+                    p.FirstName = p.Name.Substring(0, 1);
+                    p.LastName = p.Name.Substring(1, p.Name.Length-1);
+                    _context.SaveChanges();
                 }
                 catch
                 {
@@ -120,9 +137,20 @@ namespace MusicStore.Controllers
 
             return View();
         }
+        /// <summary>
+        /// 浏览用户订单
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
-            return View();
+            //判断用户是否登录
+            if(Session["LoginUserSessionModel"]==null)
+                return RedirectToAction("login","Account", new { returnUrl = Url.Action("Index", "Order") });
+
+            var person = (Session["LoginUserSessionModel"] as LoginUserSessionModel).Person;
+            var orders = _context.Orders.Where(x => x.Person.ID == person.ID).ToList();
+            //查询用户的订单列表
+            return View(orders);
         }
     }
 }
