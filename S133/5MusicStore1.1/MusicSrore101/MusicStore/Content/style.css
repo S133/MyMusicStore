@@ -71,7 +71,7 @@ ul {
 
                 ul#album-list li a span {
                     color: #9b9993;
-                    text-decoration: underline;
+                    text-decoration: none;
                 }
 
 #cart {
@@ -280,7 +280,32 @@ th, td {
 tr:hover {
     background-color: #fff;
 }
-#Avarda{
-    height:25px;
-    border-radius:25%;
+
+
+.Genre-List:link, .Genre-List:visited {
+    color: #666;
+    text-decoration: none;
+    font-weight: normal
+}
+
+.Genre-List:hover {
+    color: #333333;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.Genre-List:active {
+    color: #5e5b54;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#userAvarda {
+    height: 25px;
+    border-radius: 50%;
+}
+
+#imgAvarda {
+    height: 100px;
+    border-radius: 50%;
 }
