@@ -40,11 +40,26 @@
                 <img id="imgAvarda" src="@ViewBag.AvardaUrl" />
                 @Html.TextBoxFor(x => x.Avarda, new { type="file"})
             </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios1"
+                           value="option1" checked> 男
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input type="radio" name="optionsRadios" id="optionsRadios2"
+                           value="option2">女
+                    
+                </label>
+                </div>
 
-            <p>
-                <input type="submit" value="保存" class="btn btn-success" style="width:100px" />
-            </p>
-        </fieldset>
+           
+
+                <p>
+                    <input type="submit" value="保存" class="btn btn-success" style="width:100px" />
+                </p>
+</fieldset>
     </div>
 
 </form>
@@ -68,3 +83,5 @@
         });
     });
 </script>
+
+

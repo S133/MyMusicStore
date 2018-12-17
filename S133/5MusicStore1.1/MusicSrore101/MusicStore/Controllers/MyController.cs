@@ -64,6 +64,7 @@ namespace MusicStore.Controllers
                 person.FirstName = person.Name.Substring(0, 1);
                 person.LastName = person.Name.Substring(1, person.Name.Length - 1);
                 person.Avarda = oldAvarda;
+                //person.Sex = 
 
                 _context.SaveChanges();
 
