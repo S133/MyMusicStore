@@ -44,6 +44,32 @@
         <a class="btn" id="addcart">添加到购物车</a>
         <div id="msg"></div>
     </p>
+    <br/>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <p class="Replys">
+        <script id="container" name="content" type="text/plain">
+            说些什么吧
+        </script>
+        <!-- 配置文件 -->@*ueditor.config.js*@
+        <script type="text/javascript" src="~/Content/ueditor/ueditor.config.js"></script>
+        <!-- 编辑器源码文件 -->
+        <script type="text/javascript" src="~/Content/ueditor/ueditor.all.js"></script>
+        <!-- 实例化编辑器 -->
+        <script type="text/javascript">
+        var ue = UE.getEditor('container');
+        </script>
+    </p>
+    <div class="button">
+        提交
+    </div>
 </div>
 <script>
     $("#addcart").click(function() {
