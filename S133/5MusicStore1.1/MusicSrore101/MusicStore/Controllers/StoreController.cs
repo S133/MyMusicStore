@@ -16,6 +16,12 @@ namespace MusicStore.Controllers
             var detail = _context.Albums.Find(id);
             return View(detail);
         }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddCmt(string id,string cmt,string reply)
+        {
+            return Json("ok");
+        }
         public ActionResult Browser(Guid id)
         {
             var list = _context.Albums.Where(x => x.Genre.ID == id)
