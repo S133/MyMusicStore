@@ -24,6 +24,7 @@
     <title>@ViewBag.Title - 音乐商店</title>
     @*绑定样式库*@
     @Styles.Render("~/Content/css")
+    @Styles.Render("~/ueditor/Css")
     @Styles.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/JqueryUI")
     @*绑定脚本库*@
@@ -31,6 +32,7 @@
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/JqueryUI")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ueditor")
 
 </head>
 <body>
@@ -99,7 +101,9 @@
     var geolocation = new BMap.Geolocation();
     geolocation.getCurrentPosition(function (r) {
         if(this.getStatus()==BMAP_STATUS_SUCCESS){
-            
+            lng = r.point.lng;
+            lat = r.point.lat;
+            console.log(r);
 
             //显示百度地图定位地区
         if (r.address.district != "")
@@ -113,6 +117,7 @@
         else {
             document.getElementById('city').innerHTML = "无法定位";
         }
-    }, {enableHighAccuracy:true});
+    },
+    { enableHighAccuracy: true });
 </script>
 

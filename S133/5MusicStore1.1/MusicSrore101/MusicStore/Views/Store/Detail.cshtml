@@ -37,28 +37,38 @@
         <em>
             价格:
         </em>
-        ￥@String.Format("{0:F}",Model.Price)
+        ￥@String.Format("{0:F}", Model.Price)
     </p>
     <div id="msg"></div>
     <p class="button">
         <a class="btn" id="addcart">添加到购物车</a>
         <div id="msg"></div>
     </p>
-    <br/>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+</div>
 
-    <p class="Replys">
+<div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <textarea id="editor" name="editor"></textarea>
+            </div>
+            <button id="btnCmt" type="button" class="btn btn-success">评论</button>
+        </div>
+    </div>
+<script>
+    var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: '/ueditor/',
+        iframeCssUrl: '/ueditor/themes/iframe.css',
+        initialContent: '五星好评',
+        autoHeightEnabled: true,
+        minFrameHeight: 500
+    });
+    editor.render('editor');
+</script>
+    @*<p class="Replys">
         <script id="container" name="content" type="text/plain">
             说些什么吧
         </script>
-        <!-- 配置文件 -->@*ueditor.config.js*@
+        <!-- 配置文件 -->@*ueditor.config.js
         <script type="text/javascript" src="~/Content/ueditor/ueditor.config.js"></script>
         <!-- 编辑器源码文件 -->
         <script type="text/javascript" src="~/Content/ueditor/ueditor.all.js"></script>
@@ -69,8 +79,8 @@
     </p>
     <div class="button">
         提交
-    </div>
-</div>
+    </div>*@
+
 <script>
     $("#addcart").click(function() {
         //异步
