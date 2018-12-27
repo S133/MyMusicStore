@@ -16,6 +16,30 @@ namespace MusicStore.Controllers
         public ActionResult Detail(Guid id)
         {
             var detail = _context.Albums.Find(id);
+            var cmt = _context.Replys.Where(x => x.Album.ID == id && x.ParentReply == null)
+                .OrderByDescending(x => x.CreateDateTime).ToList();
+            var htmlString = "";
+            htmlString += "<ul class='media-list'>";
+            foreach(var item in cmt)
+            {
+                htmlString += "<li class='media'>";
+                htmlString += "<div class='media-left'>";
+                htmlString += "<img class='media-object' src='" + item.Person.Avarda +
+                    "'alt='头像' style='width:40px;border-radius:50%;'>";
+                htmlString += "</div>";
+                htmlString += "<div class='media-body'>";
+                htmlString += "<h5 class='media-heading'>" + item.Person.Name + "发表于" +
+                    item.CreateDateTime.ToString("yyyy年MM月dd日 hh点mm分ss秒") + "</h5>";
+                htmlString += item.Content;
+                //查询当前回复的下级
+                var sonCmt = _context.Replys.Where(x => x.ParentReply.ID == item.ID).ToList();
+                htmlString += "<h6>回复(<a href='#'>" + sonCmt.Count + "</a>)条" + "<a href='#'><i class='glyphicon glyphicon-thumbs-up'></i></a>(" +
+                    item.Like + ")<a href='#'><i class='glyphicon glyphicon-thumbs-down'></i></a>(" + item.Hate + ")</h6>";
+                htmlString += "</div>";
+                htmlString += "</li>";
+            }
+            htmlString += "</ul>";
+            ViewBag.Cmt = htmlString;
             return View(detail);
         }
         [HttpPost]
