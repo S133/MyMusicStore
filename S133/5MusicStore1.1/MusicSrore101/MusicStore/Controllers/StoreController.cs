@@ -18,9 +18,15 @@ namespace MusicStore.Controllers
             var detail = _context.Albums.Find(id);
             var cmt = _context.Replys.Where(x => x.Album.ID == id && x.ParentReply == null)
                 .OrderByDescending(x => x.CreateDateTime).ToList();
+            
+            ViewBag.Cmt = _GetHtml(cmt);
+            return View(detail);
+        }
+        public string _GetHtml(List<Reply> cmt)
+        {
             var htmlString = "";
             htmlString += "<ul class='media-list'>";
-            foreach(var item in cmt)
+            foreach (var item in cmt)
             {
                 htmlString += "<li class='media'>";
                 htmlString += "<div class='media-left'>";
@@ -39,8 +45,7 @@ namespace MusicStore.Controllers
                 htmlString += "</li>";
             }
             htmlString += "</ul>";
-            ViewBag.Cmt = htmlString;
-            return View(detail);
+            return htmlString;
         }
         [HttpPost]
         [ValidateInput(false)]
@@ -70,7 +75,11 @@ namespace MusicStore.Controllers
             }
             _context.Replys.Add(r);
             _context.SaveChanges();
-            return Json("ok");
+
+            var replies = _context.Replys.Where(x => x.Album.ID == album.ID && x.ParentReply
+              ==null).OrderByDescending(x=>x.CreateDateTime).ToList();
+
+            return Json(_GetHtml(replies));
         }
         public ActionResult Browser(Guid id)
         {

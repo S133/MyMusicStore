@@ -60,6 +60,7 @@
         <div class="col-md-10">
             <div class="form-group">
                 <textarea id="editor" name="editor"></textarea>
+                <input type="hidden" id="pReplyID" />
             </div>
             <button id="btnCmt" type="button" class="btn btn-success">评论</button>
         </div>
@@ -76,6 +77,7 @@
     $("#btnCmt").click(function () {
         UE.getEditor('editor');
         var content = UE.getEditor('editor').getContent();
+        var pid = $("#pReplyID").val();
         $.ajax({
             type: 'post',
             asyn: true,
@@ -83,7 +85,7 @@
             data: {
                 "id": "@Model.ID",
                 "cmt": content,
-                "reply": ""
+                "reply": pid
             },
             dataType: 'json',
             success: function (data) {
@@ -92,7 +94,10 @@
                     location.href = "@Url.Action("login","Account",
                                     new { returnUrl=Url.Action("Detail","Store",new { id = Model.ID })} )";
                 }
-                else if (data == "ok") {
+                else {
+                    $("#divCmt").html(data);
+                    UE.getEditor('editor').setContent('');
+                    location.reload();
                     alert('发表成功!');
                     //局部刷新
                 }
