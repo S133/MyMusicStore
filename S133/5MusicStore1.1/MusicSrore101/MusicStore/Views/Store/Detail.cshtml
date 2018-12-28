@@ -65,78 +65,98 @@
             <button id="btnCmt" type="button" class="btn btn-success">评论</button>
         </div>
     </div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content" id="Div-SonCmts">
+            <div class="modal-header">
+                <button type="button" class="close" data-dissmiss="modal" aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                    原回复
+                </h4>
+            </div>
+            <div class="modal-body">
+                子回复。。。<a href='#' class='reply' style='margin:0 20px 0 40px'><i class='glyphicon glyphicon-thumbs-up'></i>(0)</a><a href='#' class='reply' style='margin:0 20px'><i class='glyphicon glyphicon-thumbs-down'></i>(0)</a><br />
+                子回复。。。<a href='#' class='reply' style='margin:0 20px 0 40px'><i class='glyphicon glyphicon-thumbs-up'></i>(0)</a><a href='#' class='reply' style='margin:0 20px'><i class='glyphicon glyphicon-thumbs-down'></i>(0)</a><br />
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     function GetQuote(id)
     {
         //保存评论的id
         $("#pReplyID").val(id);
-        alert($("pReplyID").val());
+        //alert($("pReplyID").val());
         //取回复内容
         var divName = 'Content-' + id;
         var content ="<p></p>"+ $("#" + divName).html();
         //把内容赋值给ueditor
         var ue = UE.getEditor('editor');
         ue.ready(function () {
-            ue.setContent(content)
+            ue.setContent(content);
         });
     }
-
-    //百度编辑器调用
-    var editor = new baidu.editor.ui.Editor({
-        UEDITOR_HOME_URL: '/ueditor/',
-        iframeCssUrl: '/ueditor/themes/iframe.css',
-        initialContent: '五星好评',
-        autoHeightEnabled: true,
-        minFrameHeight: 500
-    });
-    //提交回复
-    editor.render('editor');
-    $("#btnCmt").click(function () {
-        UE.getEditor('editor');
-        var content = UE.getEditor('editor').getContent();
-        var pid = $("#pReplyID").val();
+    function ShowCmt(id) {
+        //ajax 查询出子回复
         $.ajax({
             type: 'post',
             asyn: true,
-            url: '@Url.Action("AddCmt","Store")',
-            data: {
-                "id": "@Model.ID",
-                "cmt": content,
-                "reply": pid
-            },
+            url: '@Url.Action("showCmts","Store")',
+            data: { "pid": id },
             dataType: 'json',
             success: function (data) {
-                if (data == 'nologin') {
-                    //如果没有登录
-                    location.href = "@Url.Action("login","Account",
-                                    new { returnUrl=Url.Action("Detail","Store",new { id = Model.ID })} )";
-                }
-                else {
-                    $("#divCmt").html(data);
-                    UE.getEditor('editor').setContent('');
-                    
-                    //局部刷新
-                }
+                $("#Div-SonCmts").html(data);
+                $('#myModal').modal('toggle');
             }
         });
-    });
+    }
+        //百度编辑器调用
+        var editor = new baidu.editor.ui.Editor({
+            UEDITOR_HOME_URL: '/ueditor/',
+            iframeCssUrl: '/ueditor/themes/iframe.css',
+            initialContent: '五星好评',
+            autoHeightEnabled: true,
+            minFrameHeight: 500
+        });
+        //提交回复
+        editor.render('editor');
+        $("#btnCmt").click(function () {
+            UE.getEditor('editor');
+            var content = UE.getEditor('editor').getContent();
+            var pid = $("#pReplyID").val();
+            $.ajax({
+                type: 'post',
+                asyn: true,
+                url: '@Url.Action("AddCmt","Store")',
+                data: {
+                    "id": "@Model.ID",
+                    "cmt": content,
+                    "reply": pid
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data == 'nologin') {
+                        //如果没有登录
+                        location.href = "@Url.Action("login","Account",
+                                    new { returnUrl=Url.Action("Detail","Store",new { id = Model.ID })} )";
+                    }
+                    else {
+                        $("#divCmt").html(data);
+                        UE.getEditor('editor').setContent('');
+
+                        //局部刷新
+                    }
+                }
+            });
+        });
+    
 </script>
-    @*<p class="Replys">
-        <script id="container" name="content" type="text/plain">
-            说些什么吧
-        </script>
-        <!-- 配置文件 -->@*ueditor.config.js
-        <script type="text/javascript" src="~/Content/ueditor/ueditor.config.js"></script>
-        <!-- 编辑器源码文件 -->
-        <script type="text/javascript" src="~/Content/ueditor/ueditor.all.js"></script>
-        <!-- 实例化编辑器 -->
-        <script type="text/javascript">
-        var ue = UE.getEditor('container');
-        </script>
-    </p>
-    <div class="button">
-        提交
-    </div>*@
+   
 
 <script>
     $("#addcart").click(function() {

@@ -40,9 +40,11 @@ namespace MusicStore.Controllers
                 htmlString += "</div>";
                 //查询当前回复的下级
                 var sonCmt = _context.Replys.Where(x => x.ParentReply.ID == item.ID).ToList();
-                htmlString += "<h6><a href='#div-editor' class='reply' onclick=\"javascript:GetQuote('" + item.ID+"');\">回复</a>(<a href='#' class='reply'>" + sonCmt.Count + "</a>)条" + "<a href='#' class='reply' style='margin:0 20px 0 40px'><i class='glyphicon glyphicon-thumbs-up'></i>(" +
-                    item.Like + ")</a><a href='#' class='reply' style='margin:0 20px'><i class='glyphicon glyphicon-thumbs-down'></i>(" + item.Hate + ")</a></h6>";
-                
+                htmlString += "<h6><a href='#div-editor' class='reply' onclick=\"javascript:GetQuote('" + item.ID +
+                              "');\">回复</a>(<a href='#' class='reply'  onclick=\"javascript:ShowCmt('" + item.ID + "');\">" + sonCmt.Count + "</a>)条" +
+                              "<a href='#' class='reply' style='margin:0 20px 0 40px'><i class='glyphicon glyphicon-thumbs-up'></i>(" +
+                              item.Like + ")</a><a href='#' class='reply' style='margin:0 20px'><i class='glyphicon glyphicon-thumbs-down'></i>(" + item.Hate + ")</a></h6>";
+
                 htmlString += "</li>";
             }
             htmlString += "</ul>";
@@ -81,6 +83,23 @@ namespace MusicStore.Controllers
               ==null).OrderByDescending(x=>x.CreateDateTime).ToList();
 
             return Json(_GetHtml(replies));
+        }
+
+        [HttpPost]
+        public ActionResult showCmts(string pid)
+        {
+            var htmString = "";
+            Guid id = Guid.Parse(pid);
+            var cmts = _context.Replys.Where(x => x.ParentReply.ID == id).OrderByDescending(x => x.CreateDateTime).ToList();
+            var pcmt = _context.Replys.Find(id);
+            htmString += "<div class=\"modal-header\">";
+            htmString += "<button type=\"button\"class=\"close\"data-dismiss=\"modal\"aria-hidden=\"true\">";
+            htmString += "<h4 class=\"modal-title\"id=\"myModalLabel\">";
+            htmString += pcmt.Person.Name + "发表于" + pcmt.CreateDateTime.ToString("yyyy年MM月dd日 hh点mm分ss秒") + ":<br/>" + pcmt.Content;
+            htmString += "</h4></div>";
+            htmString += "<div class=\"modal-body\">";
+            htmString += "</div><div class=\"modal-footer\"></div>";
+            return Json(htmString);
         }
         public ActionResult Browser(Guid id)
         {
