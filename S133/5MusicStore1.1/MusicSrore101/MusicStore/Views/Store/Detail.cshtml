@@ -58,7 +58,7 @@
 @*百度ueditor呈现*@
 <div class="row">
         <div class="col-md-10">
-            <div class="form-group">
+            <div class="form-group" id="div-editor">
                 <textarea id="editor" name="editor"></textarea>
                 <input type="hidden" id="pReplyID" />
             </div>
@@ -66,6 +66,22 @@
         </div>
     </div>
 <script>
+    function GetQuote(id)
+    {
+        //保存评论的id
+        $("#pReplyID").val(id);
+        alert($("pReplyID").val());
+        //取回复内容
+        var divName = 'Content-' + id;
+        var content ="<p></p>"+ $("#" + divName).html();
+        //把内容赋值给ueditor
+        var ue = UE.getEditor('editor');
+        ue.ready(function () {
+            ue.setContent(content)
+        });
+    }
+
+    //百度编辑器调用
     var editor = new baidu.editor.ui.Editor({
         UEDITOR_HOME_URL: '/ueditor/',
         iframeCssUrl: '/ueditor/themes/iframe.css',
@@ -73,6 +89,7 @@
         autoHeightEnabled: true,
         minFrameHeight: 500
     });
+    //提交回复
     editor.render('editor');
     $("#btnCmt").click(function () {
         UE.getEditor('editor');
@@ -97,8 +114,7 @@
                 else {
                     $("#divCmt").html(data);
                     UE.getEditor('editor').setContent('');
-                    location.reload();
-                    alert('发表成功!');
+                    
                     //局部刷新
                 }
             }
