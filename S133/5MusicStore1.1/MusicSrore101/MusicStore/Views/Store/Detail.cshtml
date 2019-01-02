@@ -77,29 +77,27 @@
                 </h4>
             </div>
             <div class="modal-body">
-                子回复。。。<a href='#' class='reply' style='margin:0 20px 0 40px'><i class='glyphicon glyphicon-thumbs-up'></i>(0)</a><a href='#' class='reply' style='margin:0 20px'><i class='glyphicon glyphicon-thumbs-down'></i>(0)</a><br />
-                子回复。。。<a href='#' class='reply' style='margin:0 20px 0 40px'><i class='glyphicon glyphicon-thumbs-up'></i>(0)</a><a href='#' class='reply' style='margin:0 20px'><i class='glyphicon glyphicon-thumbs-down'></i>(0)</a><br />
             </div>
             <div class="modal-footer">
-
             </div>
         </div>
     </div>
 </div>
 <script>
-    function GetQuote(id)
+    function GetQuote(id,divid)
     {
         //保存评论的id
         $("#pReplyID").val(id);
         //alert($("pReplyID").val());
         //取回复内容
-        var divName = 'Content-' + id;
-        var content ="<p></p>"+ $("#" + divName).html();
+        var divName = 'Content-' + divid;
+        var content ="<br/><br/><div style='margin:20px; border:1px solid black'>引用:<br/>"+ $("#" + divName).html()+"</div>";
         //把内容赋值给ueditor
         var ue = UE.getEditor('editor');
         ue.ready(function () {
             ue.setContent(content);
         });
+        $('#myModal').modal('hide');
     }
     function ShowCmt(id) {
         //ajax 查询出子回复
@@ -115,6 +113,29 @@
             }
         });
     }
+    function Like(id) {
+        $.ajax({
+            type: 'post',
+            asyn: true,
+            url: '@Url.Action("Like","Store")',
+            data: { "pid": id },
+            dataType: 'json',
+            success: function (data) {
+            }
+            });
+    }
+
+    function hate(id) {
+        $.ajax({
+            type: 'post',
+            asyn: true,
+            url: '@Url.Action("Hate","Store")',
+            data: { "pid": id },
+            dataType: 'json',
+            success: function (data) {
+            }
+        });
+    }
         //百度编辑器调用
         var editor = new baidu.editor.ui.Editor({
             UEDITOR_HOME_URL: '/ueditor/',
@@ -123,8 +144,9 @@
             autoHeightEnabled: true,
             minFrameHeight: 500
         });
-        //提交回复
+        
         editor.render('editor');
+    //提交回复
         $("#btnCmt").click(function () {
             UE.getEditor('editor');
             var content = UE.getEditor('editor').getContent();
@@ -154,7 +176,7 @@
                 }
             });
         });
-    
+
 </script>
    
 

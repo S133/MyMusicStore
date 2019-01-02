@@ -31,9 +31,9 @@ namespace MusicStoreEntity
 
         public DateTime CreateDateTime { get; set; }//回复时间
 
-        public int Like { get; set; } 
+        public int Like { get; set; } = 0;
 
-        public int Hate { get; set; } 
+        public int Hate { get; set; } = 0;
 
         public Reply()
         {

@@ -22,6 +22,14 @@ namespace MusicStore.Controllers
             ViewBag.Cmt = _GetHtml(cmt);
             return View(detail);
         }
+        [HttpPost]
+        public ActionResult Like(Guid id)
+        {
+            //判断是否登录
+            if (Session["LoginUserSessionModel"] == null)
+                return Json("nologin");
+            return Json("");
+        }
         public string _GetHtml(List<Reply> cmt)
         {
             var htmlString = "";
@@ -41,7 +49,7 @@ namespace MusicStore.Controllers
                 //查询当前回复的下级
                 var sonCmt = _context.Replys.Where(x => x.ParentReply.ID == item.ID).ToList();
                 htmlString += "<h6><a href='#div-editor' class='reply' onclick=\"javascript:GetQuote('" + item.ID +
-                              "');\">回复</a>(<a href='#' class='reply'  onclick=\"javascript:ShowCmt('" + item.ID + "');\">" + sonCmt.Count + "</a>)条" +
+                              "','"+item.ID+"');\">回复</a>(<a href='#' class='reply'  onclick=\"javascript:ShowCmt('" + item.ID + "');\">" + sonCmt.Count + "</a>)条" +
                               "<a href='#' class='reply' style='margin:0 20px 0 40px'><i class='glyphicon glyphicon-thumbs-up'></i>(" +
                               item.Like + ")</a><a href='#' class='reply' style='margin:0 20px'><i class='glyphicon glyphicon-thumbs-down'></i>(" + item.Hate + ")</a></h6>";
 
@@ -88,18 +96,38 @@ namespace MusicStore.Controllers
         [HttpPost]
         public ActionResult showCmts(string pid)
         {
-            var htmString = "";
+            var htmlString = "";
             Guid id = Guid.Parse(pid);
             var cmts = _context.Replys.Where(x => x.ParentReply.ID == id).OrderByDescending(x => x.CreateDateTime).ToList();
             var pcmt = _context.Replys.Find(id);
-            htmString += "<div class=\"modal-header\">";
-            htmString += "<button type=\"button\"class=\"close\"data-dismiss=\"modal\"aria-hidden=\"true\">";
-            htmString += "<h4 class=\"modal-title\"id=\"myModalLabel\">";
-            htmString += pcmt.Person.Name + "发表于" + pcmt.CreateDateTime.ToString("yyyy年MM月dd日 hh点mm分ss秒") + ":<br/>" + pcmt.Content;
-            htmString += "</h4></div>";
-            htmString += "<div class=\"modal-body\">";
-            htmString += "</div><div class=\"modal-footer\"></div>";
-            return Json(htmString);
+            htmlString += "<div class=\"modal-header\">";
+            htmlString += "<button type=\"button\"class=\"close\"data-dismiss=\"modal\"aria-hidden=\"true\">×</button>";
+            htmlString += "<h4 class=\"modal-title\"id=\"myModalLabel\">";
+            htmlString += pcmt.Person.Name + "发表于" + pcmt.CreateDateTime.ToString("yyyy年MM月dd日 hh点mm分ss秒") + ":<br/>" + pcmt.Content;
+            htmlString += "</h4></div>";
+            htmlString += "<div class=\"modal-body\">";
+            //子回复
+            htmlString += "<ul class='media-list' style='margin-left:20px;'>";
+            foreach(var item in cmts)
+            {
+                htmlString += "<li class='media'>";
+                htmlString += "<div class='media-left'>";
+                htmlString += "<img class='media-object' src='"+item.Person.Avarda+
+                    "' alt='头像' style='width:40px;border-radius:50%;'>";
+                htmlString += "</div>";
+                htmlString += "<div class='media-body' id='Content-"+item.ID+"'>";
+                htmlString += "<h5 class='media-heading'><em>"+item.Person.Name+"</em>&nbsp;&nbsp;发表于"+
+                    item.CreateDateTime.ToString("yyyy年MM月dd日 hh点mm分ss秒")+"</h5>";
+                htmlString += item.Content;
+                htmlString += "</div>";
+                htmlString += "<h6><a href='#div-editor' class='reply' onclick=\"javascript:GetQuote('" + item.ParentReply.ID + "','" + item.ID + "');\">回复</a>" +
+                              "<a href='#' class='reply' style='margin:0 20px 0 40px'   onclick=\"javascript:Like('" + item.ID + "');\"><i class='glyphicon glyphicon-thumbs-up'></i>(" + item.Like + ")</a>" +
+                              "<a href='#' class='reply' style='margin:0 20px'   onclick=\"javascript:Hate('" + item.ID + "');\"><i class='glyphicon glyphicon-thumbs-down'></i>(" + item.Hate + ")</a></h6>";
+                htmlString += "</li>";
+            }
+            htmlString += "</ul>";
+            htmlString += "</div><div class=\"modal-footer\"></div>";
+            return Json(htmlString);
         }
         public ActionResult Browser(Guid id)
         {
